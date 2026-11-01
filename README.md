@@ -23,26 +23,27 @@
 
 ```
 ├─ WebQLBH.slnx
-├─ WebQLBH/            # Project ASP.NET Core MVC
-│  ├─ Controllers/     # Controller cho từng module
-│  ├─ Models/          # Entity
-│  ├─ Data/            # AppDbContext (EF Core + gọi Stored Procedure)
-│  ├─ Filters/         # SessionAuthorizeAttribute
-│  ├─ Views/           # Razor Views
-│  └─ wwwroot/         # CSS, JS, ảnh
-├─ database/           # File CSDL SQL Server (.mdf, .ldf)
-└─ docs/               # Slide, ảnh chụp màn hình
+├─ WebQLBH.csproj
+├─ Program.cs
+├─ appsettings.json
+├─ Controllers/     # Controller cho từng module
+├─ Models/          # Entity
+├─ Data/            # AppDbContext (EF Core + gọi Stored Procedure)
+├─ Filters/         # SessionAuthorizeAttribute
+├─ Views/           # Razor Views
+├─ wwwroot/         # CSS, JS, ảnh
+├─ database/        # File CSDL SQL Server (.mdf, .ldf)
+└─ docs/            # Slide, ảnh chụp màn hình
 ```
 
 ## Cách chạy
 
 1. Cài **.NET SDK 10** và **SQL Server** (hoặc SQL Server Express/LocalDB).
 2. Gắn (Attach) CSDL `DA_DbQLBH` từ 2 file `.mdf` / `.ldf` trong thư mục `database/` (xem `database/README.md`).
-3. Kiểm tra chuỗi kết nối trong `WebQLBH/appsettings.json` (mặc định dùng `Server=localhost` + Windows Authentication), sửa nếu máy bạn khác.
+3. Kiểm tra chuỗi kết nối trong `appsettings.json` (mặc định dùng `Server=localhost` + Windows Authentication), sửa nếu máy bạn khác.
 4. Chạy:
 
 ```bash
-cd WebQLBH
 dotnet restore
 dotnet run
 ```
