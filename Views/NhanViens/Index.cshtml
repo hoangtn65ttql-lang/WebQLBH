@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebQLBH.Models.NhanVien>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Họ</th>
+            <th>Tên</th>
+            <th>Điện Thoại</th>
+            <th>Email</th>
+            <th>Tên Đăng Nhập</th>
+            <th>Ảnh</th>
+            <th>Phòng Ban</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.HoNV)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenNV)</td>
+                <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.TenDN)</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.AnhNV))
+                    {
+                        <img src="~/images/uploads/@item.AnhNV"
+                             style="width:100px; height:100px; object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">Chưa có ảnh</span>
+                    }
+                </td>
+                <td>@(item.PhongBan?.TenPB ?? "")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaNV">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaNV">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaNV">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

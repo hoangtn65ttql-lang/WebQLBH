@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebQLBH.Models.SanPham>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã Sản Phẩm</th>
+            <th>Tên Sản Phẩm</th>
+            <th>Đơn Giá</th>
+            <th>Ảnh</th>
+            <th>Mô tả chi tiết</th>
+            <th>Loại Sản Phẩm</th>
+            <th>Đơn Vị Tính</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaSP</td>
+                <td>@item.TenSP</td>
+                <td>@item.DonGia.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.AnhSP))
+                    {
+                        <img src="~/images/uploads/@item.AnhSP"
+                             style="width:150px; height:150px; object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">Chưa có ảnh</span>
+                    }
+                </td>
+                <td style="max-width:250px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;"
+                    title="@item.MoTaCT">
+                    @item.MoTaCT
+                </td>
+                <td>@(item.LoaiSP?.TenLSP ?? item.MaLSP.ToString())</td>
+                <td>@(item.DonViTinh?.TenDVT ?? item.MaDVT.ToString())</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaSP">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaSP">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaSP">Delete</a>
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

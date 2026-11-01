@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebQLBH.Models.KhachHang>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Họ</th>
+            <th>Tên</th>
+            <th>Điện Thoại</th>
+            <th>Email</th>
+            <th>Địa Chỉ</th>
+            <th>Tên Đăng Nhập</th>
+            <th>Xã Phường</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.HoKH</td>
+                <td>@item.TenKH</td>
+                <td>@item.DienThoai</td>
+                <td>@item.Email</td>
+                <td>@item.DiaChi</td>
+                <td>@item.TenDN</td>
+                <td>@(item.XaPhuong?.TenXP ?? item.MaXP)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaKH">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaKH">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaKH">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

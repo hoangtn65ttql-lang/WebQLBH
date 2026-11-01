@@ -1,0 +1,111 @@
+﻿@model WebQLBH.Models.NhanVien
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+<h4>NhanVien</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="MaNV" />
+            <input type="hidden" name="existingAnh" value="@Model.AnhNV" />
+
+            <div class="form-group">
+                <label asp-for="HoNV" class="control-label"></label>
+                <input asp-for="HoNV" class="form-control" />
+                <span asp-validation-for="HoNV" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TenNV" class="control-label"></label>
+                <input asp-for="TenNV" class="form-control" />
+                <span asp-validation-for="TenNV" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DienThoai" class="control-label"></label>
+                <input asp-for="DienThoai" class="form-control" />
+                <span asp-validation-for="DienThoai" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TenDN" class="control-label"></label>
+                <input asp-for="TenDN" class="form-control" />
+                <span asp-validation-for="TenDN" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-2">
+                <label class="control-label">Ảnh hiện tại</label><br />
+                @if (!string.IsNullOrEmpty(Model.AnhNV))
+                {
+                    <img src="~/images/uploads/@Model.AnhNV" id="imgCurrent"
+                         style="width:80px; height:80px; object-fit:cover;" />
+                }
+                else
+                {
+                    <span class="text-muted">Chưa có ảnh</span>
+                }
+            </div>
+
+            <div class="form-group mt-2">
+                <label class="control-label">Chọn ảnh mới (nếu muốn thay)</label>
+                <input type="file" name="image" class="form-control"
+                       accept="image/*" onchange="previewImage(this)" />
+            </div>
+
+            <div class="form-group mt-2">
+                <img id="imgPreview" src="#" alt="Preview"
+                     style="width:80px; height:80px; object-fit:cover; display:none;" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaPB" class="control-label"></label>
+                <select asp-for="MaPB" class="form-control" asp-items="ViewBag.PhongBans">
+                    <option value="">-- Chọn Phòng Ban --</option>
+                </select>
+                <span asp-validation-for="MaPB" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function previewImage(input) {
+            const img = document.getElementById('imgPreview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    const cur = document.getElementById('imgCurrent');
+                    if (cur) cur.style.display = 'none';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}
